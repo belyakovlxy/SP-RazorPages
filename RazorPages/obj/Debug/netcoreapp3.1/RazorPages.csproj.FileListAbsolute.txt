@@ -43,3 +43,4 @@ C:\Users\kek\source\repos\RazorPages\RazorPages\obj\Debug\netcoreapp3.1\Razor\Pa
 C:\Users\kek\source\repos\RazorPages\RazorPages\obj\Debug\netcoreapp3.1\Razor\Pages\pricing.cshtml.g.cs
 C:\Users\kek\source\repos\RazorPages\RazorPages\obj\Debug\netcoreapp3.1\Razor\Pages\services.cshtml.g.cs
 C:\Users\kek\source\repos\RazorPages\RazorPages\obj\Debug\netcoreapp3.1\Razor\Pages\testimonials.cshtml.g.cs
+C:\Users\kek\source\repos\RazorPages\RazorPages\bin\Debug\netcoreapp3.1\paralax_section.json

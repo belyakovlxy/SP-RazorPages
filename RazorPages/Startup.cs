@@ -24,6 +24,7 @@ namespace RazorPages
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddRazorPages();
+			services.AddScoped<IParalaxSectionService, ParalaxSectionService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kek\\source\\repos\\RazorPages\\RazorPages\\RazorPages.csproj": {}
+    "G:\\Stud\\серверное программирование\\RazorPages\\RazorPages\\RazorPages.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kek\\source\\repos\\RazorPages\\RazorPages\\RazorPages.csproj": {
+    "G:\\Stud\\серверное программирование\\RazorPages\\RazorPages\\RazorPages.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kek\\source\\repos\\RazorPages\\RazorPages\\RazorPages.csproj",
+        "projectUniqueName": "G:\\Stud\\серверное программирование\\RazorPages\\RazorPages\\RazorPages.csproj",
         "projectName": "RazorPages",
-        "projectPath": "C:\\Users\\kek\\source\\repos\\RazorPages\\RazorPages\\RazorPages.csproj",
+        "projectPath": "G:\\Stud\\серверное программирование\\RazorPages\\RazorPages\\RazorPages.csproj",
         "packagesPath": "C:\\Users\\kek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kek\\source\\repos\\RazorPages\\RazorPages\\obj\\",
+        "outputPath": "G:\\Stud\\серверное программирование\\RazorPages\\RazorPages\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kek\\AppData\\Roaming\\NuGet\\NuGet.Config",

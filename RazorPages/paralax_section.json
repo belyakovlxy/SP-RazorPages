@@ -1,0 +1,22 @@
+[
+  {
+    "Iconclass": "flaticon-briefcase",
+    "StatCount": "1200",
+    "HeaderText": "Complated Projects"
+  },
+  {
+    "Iconclass": "flaticon-happy",
+    "StatCount": "3210",
+    "HeaderText": "From Json"
+  },
+  {
+    "Iconclass": "flaticon-idea",
+    "StatCount": "3781",
+    "HeaderText": "Customer Services"
+  },
+  {
+    "Iconclass": "flaticon-customer-service",
+    "StatCount": "4300",
+    "HeaderText": "Answered Questions"
+  }
+]

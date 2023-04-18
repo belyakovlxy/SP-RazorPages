@@ -12,9 +12,14 @@ namespace RazorPages.Pages
 	{
 		private readonly ILogger<IndexModel> _logger;
 
-		public IndexModel(ILogger<IndexModel> logger)
+		private IParalaxSectionService _service;
+		public IEnumerable<ParalaxSection> paralaxSection { get; set; }
+
+		public IndexModel(ILogger<IndexModel> logger, IParalaxSectionService service)
 		{
 			_logger = logger;
+			this._service = service;
+			paralaxSection = service.getAll();
 		}
 
 		public void OnGet()
