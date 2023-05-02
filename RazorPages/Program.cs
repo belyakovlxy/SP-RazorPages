@@ -1,13 +1,13 @@
+using CsvHelper;
+using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace RazorPages
 {
@@ -46,6 +46,43 @@ namespace RazorPages
 
             string json = streamReader.ReadToEnd();
             return JsonSerializer.Deserialize<ParalaxSection[]>(json) ?? new ParalaxSection[] { };
+        }
+    }
+
+    public interface IContactsService
+    {
+        void writeContact(Contact newContact);
+    }
+
+    public class Contact
+    {
+        public String first_name { get; set; }
+        public String last_name { get; set; }
+        public String email { get; set; }
+        public String phone { get; set; }
+        public String select_service { get; set; }
+        public String select_price { get; set; }
+        public String comments { get; set; }
+    }
+    public class ContactsService : IContactsService
+    {
+        private Mutex mutexObj = new Mutex();
+        private String csvFileName = @"csv\contacts.csv";
+        public void writeContact(Contact newContact)
+        {
+            mutexObj.WaitOne();
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = false,
+            };
+            using (var stream = File.Open(csvFileName, FileMode.Append))
+            using (var writer = new StreamWriter(stream))
+            using (var csv = new CsvWriter(writer, config))
+            {
+                csv.WriteRecord<Contact>(newContact);
+                csv.NextRecord();
+            }
+            mutexObj.ReleaseMutex();
         }
     }
 }
