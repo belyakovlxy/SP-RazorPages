@@ -24,7 +24,8 @@ namespace RazorPages
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddRazorPages();
-			services.AddScoped<IParalaxSectionService, ParalaxSectionService>();
+            services.AddScoped<ITestimonialService, TestimonialService>();
+            services.AddScoped<IParalaxSectionService, ParalaxSectionService>();
 			services.AddScoped<IContactsService, ContactsService>();
 		}
 

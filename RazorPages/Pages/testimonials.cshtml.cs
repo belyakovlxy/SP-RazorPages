@@ -9,6 +9,13 @@ namespace RazorPages.Pages
 {
     public class testimonialsModel : PageModel
     {
+        private ITestimonialService _service;
+        public IEnumerable<Testimonial> Testimonials { get; set; }
+        public testimonialsModel(ITestimonialService service)
+        {
+            this._service = service;
+            Testimonials = service.getAll();
+        }
         public void OnGet()
         {
         }

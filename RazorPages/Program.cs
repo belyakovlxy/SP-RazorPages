@@ -1,7 +1,10 @@
 using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using RazorPagesGeneral.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -49,13 +52,9 @@ namespace RazorPages
         }
     }
 
-    public interface IContactsService
-    {
-        void writeContact(Contact newContact);
-    }
-
     public class Contact
     {
+        public int Id { get; set; }
         public String first_name { get; set; }
         public String last_name { get; set; }
         public String email { get; set; }
@@ -63,26 +62,84 @@ namespace RazorPages
         public String select_service { get; set; }
         public String select_price { get; set; }
         public String comments { get; set; }
+
+        public Contact(string first_name, string last_name, string email, string phone, string select_service, string select_price, string comments)
+        {
+            this.first_name = first_name;
+            this.last_name = last_name;
+            this.email = email;
+            this.phone = phone;
+            this.select_service = select_service;
+            this.select_price = select_price;
+            this.comments = comments;
+        }
     }
+
+    public interface IContactsService
+    {
+        void writeToDBContacts(Contact contact);
+    }
+
     public class ContactsService : IContactsService
     {
-        private Mutex mutexObj = new Mutex();
-        private String csvFileName = @"csv\contacts.csv";
-        public void writeContact(Contact newContact)
+        void IContactsService.writeToDBContacts(Contact contact)
         {
-            mutexObj.WaitOne();
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            IConfiguration config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var options = new DbContextOptionsBuilder<AppDBContext>()
+                .UseSqlite(config.GetConnectionString("Default"))
+                .Options;
+
+            using (var context = new AppDBContext(options))
             {
-                HasHeaderRecord = false,
-            };
-            using (var stream = File.Open(csvFileName, FileMode.Append))
-            using (var writer = new StreamWriter(stream))
-            using (var csv = new CsvWriter(writer, config))
-            {
-                csv.WriteRecord<Contact>(newContact);
-                csv.NextRecord();
+                context.Database.EnsureCreated();
+
+                context.Contacts.Add(contact);
+                context.SaveChanges();
             }
-            mutexObj.ReleaseMutex();
+        }
+    }
+
+    [Serializable]
+    public class Testimonial
+    {
+        public int Id { get; set; }
+        public string? CommentLabel { get; set; }
+        public string? Comment { get; set; }
+        public string? Name { get; set; }
+        public string? JobTitle { get; set; }
+        public string? ImageUrl { get; set; }
+    }
+    public interface ITestimonialService
+    {
+        IEnumerable<Testimonial> getAll();
+    }
+
+    public class TestimonialService : ITestimonialService
+    {
+        public IEnumerable<Testimonial> getAll()
+        {
+            IConfiguration config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var options = new DbContextOptionsBuilder<AppDBContext>()
+                .UseSqlite(config.GetConnectionString("Default"))
+                .Options;
+
+            var testimonials = new List<Testimonial>();
+            using (var context = new AppDBContext(options))
+            {
+                context.Database.EnsureCreated();
+
+                foreach (var testimonial in context.Testimonials)
+                {
+                    testimonials.Add(testimonial);
+                }
+            }
+            return testimonials;
         }
     }
 }
